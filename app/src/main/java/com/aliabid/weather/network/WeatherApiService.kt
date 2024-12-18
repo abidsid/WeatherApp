@@ -20,38 +20,38 @@ interface WeatherApi {
 class WeatherService @Inject constructor(private val api: WeatherApi) {
     suspend fun getWeather(city: String): Current {
         return withContext(Dispatchers.IO) {
-            val response = api.getWeather("312cb5c33db74a09ae5175628241512", city); //.getWeather()
+            val response = api.getWeather(API_KEY, city)
             response.current
         }
     }
 
     suspend fun searchData(query: String): List<Location> {
         try {
-            val response = api.search("312cb5c33db74a09ae5175628241512", query)
+            val response = api.search(API_KEY, query)
             return response
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
         return emptyList()
     }
 
     suspend fun searchWeatherData(query: String): List<WeatherResponse> {
         try {
             val list = mutableListOf<WeatherResponse>()
-            val response = api.search("312cb5c33db74a09ae5175628241512", query)
+            val response = api.search(API_KEY, query)
 
             response.forEach {
-                val weatherResponse = api.getWeather("312cb5c33db74a09ae5175628241512", it.url)
-
+                val weatherResponse = api.getWeather(API_KEY, it.url)
                 list.add(weatherResponse)
             }
-
             return list
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
         return emptyList()
+    }
+
+    companion object {
+        const val API_KEY = "312cb5c33db74a09ae5175628241512"
     }
 }

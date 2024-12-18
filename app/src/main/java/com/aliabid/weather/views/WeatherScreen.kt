@@ -14,17 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.SnackbarHost
@@ -34,10 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,17 +40,13 @@ import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.aliabid.weather.R
-import com.aliabid.weather.models.Current
-import com.aliabid.weather.models.Location
 import com.aliabid.weather.models.WeatherResponse
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @Composable
 @ExperimentalMaterial3Api
@@ -113,10 +101,8 @@ fun BasicTextInputField(
     }
 }
 
-//@Preview
 @Composable()
-fun WeatherSearchCard(weather: WeatherResponse, onLocationSelected: () -> Unit)
-{
+fun WeatherSearchCard(weather: WeatherResponse, onLocationSelected: () -> Unit) {
     Row(
         Modifier
             .height(150.dp)
@@ -130,59 +116,63 @@ fun WeatherSearchCard(weather: WeatherResponse, onLocationSelected: () -> Unit)
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                //.padding(24.dp)
-        ){
+        ) {
 
-            Text("${weather.location.name}",
+            Text(
+                "${weather.location.name}",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black)
-            Text("${weather.current.temp_c}°",
+                color = Color.Black
+            )
+            Text(
+                "${weather.current.temp_c}°",
                 fontSize = 50.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black)
+                color = Color.Black
+            )
         }
 
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                //.padding(24.dp)
-        ){
+        ) {
             Image(
-            painter = rememberImagePainter("https:${weather.current.condition.icon}"),
-            contentDescription = "Weather Icon",
-            modifier = Modifier.size(48.dp)
-        )
+                painter = rememberImagePainter("https:${weather.current.condition.icon}"),
+                contentDescription = "Weather Icon",
+                modifier = Modifier.size(48.dp)
+            )
         }
-        //Cardcontent ()
     }
 }
 
-
-//@Preview
 @Composable()
-fun WeatherCard (weather: WeatherResponse)
-{
-    Column(verticalArrangement = Arrangement.Center,
-             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        )
+fun WeatherCard(weather: WeatherResponse) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+    )
     {
         Image(
             painter = rememberImagePainter("https:${weather.current.condition.icon}"),
             contentDescription = "Weather Icon",
-            modifier = Modifier.size(150.dp))
+            modifier = Modifier.size(150.dp)
+        )
 
-        Row(horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(
                 "${weather.location.name}",
                 fontSize = 28.sp,
@@ -193,7 +183,7 @@ fun WeatherCard (weather: WeatherResponse)
             Spacer(modifier = Modifier.padding(16.dp))
 
             Image(
-                painter =  painterResource(R.drawable.location),
+                painter = painterResource(R.drawable.location),
                 contentDescription = "Weather Icon",
                 modifier = Modifier.size(32.dp)
             )
@@ -215,51 +205,67 @@ fun WeatherCard (weather: WeatherResponse)
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally,
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)){
+                    .weight(1f)
+            ) {
 
-                Text("Humidity",
+                Text(
+                    "Humidity",
                     fontSize = 18.sp,
-                    color = Color(0xFFC4C4C4))
+                    color = Color(0xFFC4C4C4)
+                )
 
-                Text("${weather.current.humidity}",
+                Text(
+                    "${weather.current.humidity}",
                     fontSize = 20.sp,
-                    color = Color(0xFF9A9A9A))
+                    color = Color(0xFF9A9A9A)
+                )
             }
 
-            Column( horizontalAlignment = Alignment.CenterHorizontally,
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f))
+                    .weight(1f)
+            )
             {
-                Text("UV",
+                Text(
+                    "UV",
                     fontSize = 18.sp,
-                    color = Color(0xFFC4C4C4))
-                Text("${weather.current.uv}",
+                    color = Color(0xFFC4C4C4)
+                )
+                Text(
+                    "${weather.current.uv}",
                     fontSize = 20.sp,
-                    color = Color(0xFF9A9A9A))
+                    color = Color(0xFF9A9A9A)
+                )
             }
 
-            Column(horizontalAlignment = Alignment.CenterHorizontally,
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)){
-                Text("Feels Like",
+                    .weight(1f)
+            ) {
+                Text(
+                    "Feels Like",
                     fontSize = 18.sp,
-                    color = Color(0xFFC4C4C4))
-                Text("${weather.current.feelslike_c}°",
+                    color = Color(0xFFC4C4C4)
+                )
+                Text(
+                    "${weather.current.feelslike_c}°",
                     fontSize = 20.sp,
-                    color = Color(0xFF9A9A9A))
+                    color = Color(0xFF9A9A9A)
+                )
             }
-            //Cardcontent ()
         }
     }
-
 }
 
 @Composable
@@ -275,13 +281,11 @@ fun WeatherScreen(viewModel: WeatherViewModel = hiltViewModel()) {
         snapshotFlow { isConnected }.collectLatest { connected ->
             if (!connected) {
                 snackbarHostState.showSnackbar("No internet connection")
-                // Alternatively, you can use a Toast if you prefer
-                // Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    Column(modifier = Modifier.fillMaxHeight()){
+    Column(modifier = Modifier.fillMaxHeight()) {
         SnackbarHost(hostState = snackbarHostState)
 
         WeatherContent(
@@ -296,7 +300,6 @@ fun WeatherScreen(viewModel: WeatherViewModel = hiltViewModel()) {
             }
         )
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -323,10 +326,10 @@ fun WeatherContent(
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
-                    .fillMaxSize()     // Fill the available height and width
+                    .fillMaxSize()
                     .padding(16.dp)
             ) {
-                items(searchResults.size){ index ->
+                items(searchResults.size) { index ->
                     WeatherSearchCard(searchResults[index], onLocationSelected = {
                         onLocationSelected(searchResults[index])
                     })
@@ -335,14 +338,14 @@ fun WeatherContent(
 
         } else {
             if (selectedWeather == null) {
-            Column(
-                Modifier
-                    .wrapContentSize()
-                    .fillMaxSize()
-                    .padding(start = 26.dp, end = 26.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
+                Column(
+                    Modifier
+                        .wrapContentSize()
+                        .fillMaxSize()
+                        .padding(start = 26.dp, end = 26.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
 
                     Text(
                         text = "No City Selected",
@@ -357,86 +360,18 @@ fun WeatherContent(
                         fontSize = 16.sp
                     )
                 }
-            }else {
-                    Column(
-                        Modifier
-                            .wrapContentSize()
-                            .fillMaxSize()
-                            .padding(start = 26.dp, end = 26.dp, top = 26.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Top
-                    ) {
+            } else {
+                Column(
+                    Modifier
+                        .wrapContentSize()
+                        .fillMaxSize()
+                        .padding(start = 26.dp, end = 26.dp, top = 26.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Top
+                ) {
                     WeatherCard(weather = selectedWeather)
-//                    Text(text = "City: ${selectedWeather.location.name}")
-//                    Text(text = "Temperature: ${selectedWeather.current.temp_c}°C")
-//                    Text(text = "Condition: ${selectedWeather.current.condition.text}")
-//                    Image(
-//                        painter = rememberImagePainter("https:${selectedWeather.current.condition.icon}"),
-//                        contentDescription = "Weather Icon",
-//                        modifier = Modifier.size(32.dp)
-//                    )
-//                    Text(text = "Humidity: ${selectedWeather.current.humidity}%")
-//                    Text(text = "UV Index: ${selectedWeather.current.uv}")
-//                    Text(text = "Feels like: ${selectedWeather.current.feelslike_c}°C")
                 }
             }
         }
     }
 }
-
-
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Composable
-//fun WeatherContent() { //(weather: WeatherResponse) {
-//    Column(
-//        Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//    ) {
-//        Spacer(Modifier.height(32.dp))
-//
-//        BasicTextInputField(value = "")
-//
-//        Column(
-//            Modifier
-//                .wrapContentSize()
-//                .fillMaxSize()
-//                .padding(start = 26.dp, end = 26.dp),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//
-//
-//            Text(
-//                text = "No City Selected",
-//                //Modifier.padding(top = 16.dp),
-//                textAlign = TextAlign.Center,
-//                fontSize = 32.sp,
-//                fontWeight = FontWeight.Bold,
-//
-//                )
-//            Text(
-//                text = "Please Search For A City",
-//                //Modifier.padding(top = 8.dp),
-//                textAlign = TextAlign.Center,
-//                fontWeight = FontWeight.Bold,
-//                fontSize = 16.sp
-//
-//            )
-//
-//        }
-//    }
-//
-//    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//        Text(text = "City: ${weather.location.name}")
-//        Text(text = "Temperature: ${weather.current.temp_c}°C")
-//        Text(text = "Condition: ${weather.current.condition.text}")
-//        Image(
-//            painter = rememberImagePainter("https:${weather.current.condition.icon}"),
-//            contentDescription = "Weather Icon",
-//            modifier = Modifier.size(32.dp)
-//        )
-//        Text(text = "Humidity: ${weather.current.humidity}%")
-//        Text(text = "UV Index: ${weather.current.uv}")
-//        Text(text = "Feels like: ${weather.current.feelslike_c}°C")
-//    }
-//}

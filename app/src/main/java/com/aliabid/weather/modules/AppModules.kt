@@ -61,7 +61,6 @@ object RetrofitModule {
             .build()
     }
 
-    // Games
     @Provides
     @ViewModelScoped
     fun provideWeatherApi(retrofit: Retrofit): WeatherApi {
@@ -71,26 +70,24 @@ object RetrofitModule {
     @Provides
     @ViewModelScoped
     fun provideWeatherService(weatherApi: WeatherApi): WeatherService {
-        return WeatherService(weatherApi)  // Or however you create an instance of GameService
+        return WeatherService(weatherApi)
     }
-
 
     @Provides
     @ViewModelScoped
     fun provideWeatherRepository(weatherService: WeatherService): WeatherRepository {
-        return WeatherRepository(weatherService)  // Or however you create an instance of GameRepository
+        return WeatherRepository(weatherService)
     }
 
     @Provides
     @ViewModelScoped
     fun provideLocationUseCase(weatherRepository: WeatherRepository): GetLocationUseCase {
-        return GetLocationUseCase(weatherRepository)  // Or however you create an instance of GetGamesUseCase
+        return GetLocationUseCase(weatherRepository)
     }
 
-    // Products
     @Provides
     @ViewModelScoped
     fun provideCurrentUseCase(weatherRepository: WeatherRepository): GetCurrentUseCase {
-        return GetCurrentUseCase(weatherRepository)  // Or however you create an instance of GetGamesUseCase
+        return GetCurrentUseCase(weatherRepository)
     }
 }
