@@ -59,4 +59,13 @@ The primary goal of this project is to demonstrate:
 - **WeatherAPI**: External API for weather data.
 - **DataStore**: For data persistence.
 
+---
 
+## 🚀 **Getting Started**
+
+1. Clone the repository:
+   git clone https://github.com/abidsid/WeatherApp.git
+2. Open the project in Android Studio.
+3. Add your WeatherAPI.com API key in the appropriate configuration file:
+   const val API_KEY = "your-api-key"
+4. Run the app on an emulator or physical device.
